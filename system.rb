@@ -1,5 +1,6 @@
 class System
-  def intialize
+
+  def initialize()
     @bodies = []
   end
 
@@ -8,11 +9,11 @@ class System
   end
 
   def total_mass
-    total  = 0
+    total = 0
     @bodies.each do |body|
-      total_mass += body.mass
+      total += body.mass
+      return total_mass
     end
-    return total_mass
   end
 
   def bodies
@@ -23,7 +24,7 @@ end
 
 class Body < System
   attr_accessor :name, :mass
-  def intialize(name, mass)
+  def initialize(name, mass)
     @name = name
     @mass = mass
   end
@@ -31,7 +32,7 @@ end
 
 class Planets < Body
   attr_accessor :mass, :day, :year
-  def intialize(name, mass, day, year)
+  def initialize(name, mass, day, year)
     @name = name
     @mass = mass
     @day = day
@@ -41,7 +42,7 @@ end
 
 class Stars < Body
   attr_accessor :mass, :month
-  def intialize(name, mass, type)
+  def initialize(name, mass, type)
     @name = name
     @mass = mass
     @type = type
@@ -56,12 +57,17 @@ class Moon < Body
     @mass = mass
   end
 
-sys1 = System.new
+  def planet(name, mass, day, year)
+    @planet = Planet.new(name, mass, day, year)
+  end
+end
+
+system = System.new
 sun = Stars.new('the sun', 1000, 'g-type')
-earth = Planet.new('Earth', 1000, 500, 200)
-moon = Moons.new('moon', 10000, 2)
-sys1.add(sun)
-sys1.add(earth)
-sys1.add(moon)
-p sys1
-p sys1.total_mass
+earth = Planets.new('Earth', 1000, 45, 256)
+moon = Moon.new('moon', 1000, 1)
+system.add(sun)
+system.add(earth)
+system.add(moon)
+p system
+p system.total_mass
